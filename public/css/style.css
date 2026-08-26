@@ -269,24 +269,52 @@ textarea {
 }
 
 .app-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
     margin-top: 48px;
     padding-top: 24px;
     border-top: 1px solid rgba(255, 255, 255, 0.04);
-    text-align: center;
-}
-
-.app-footer p {
     font-family: 'Plus Jakarta Sans', sans-serif;
     font-size: 0.7rem;
     color: #666666;
     letter-spacing: 0.5px;
 }
 
-/* Subtle live system status indicator */
-.status-dot {
-    width: 6px;
-    height: 6px;
-    background-color: #4ade80;
-    border-radius: 50%;
-    box-shadow: 0 0 8px rgba(74, 222, 128, 0.4);
+.app-footer p {
+    margin: 0;
+}
+
+.app-footer a {
+    color: #888888;
+    text-decoration: none;
+    transition: color 0.2s ease;
+}
+
+.app-footer a:hover {
+    color: #ffffff;
+}
+
+.footer-socials {
+    display: flex;
+    align-items: center;
+}
+
+.social-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 28px;
+    height: 28px;
+    background: #16161c;
+    border: 1px solid rgba(255, 255, 255, 0.04);
+    border-radius: 6px;
+    color: #888888;
+    transition: all 0.2s ease;
+}
+
+.social-icon:hover {
+    color: #38bdf8; /* Matches your cool cyan button hover accent */
+    border-color: rgba(56, 189, 248, 0.3);
+    transform: translateY(-1px);
 }
