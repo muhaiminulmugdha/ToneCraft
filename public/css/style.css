@@ -17,6 +17,33 @@
     padding: 0;
 }
 
+/* Logo Container - Raised 3D look by default, indented on hover */
+.logo-inset-wrapper {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: #121212;
+    border-radius: 12px;
+    padding: 2px;
+    /* Raised 3D Soft Shadow (Before Hover) */
+    box-shadow: 6px 6px 14px rgba(0, 0, 0, 0.7), 
+                -6px -6px 14px rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    margin-bottom: 24px;
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    cursor: pointer;
+}
+
+/* Logo SVG - Slower, smoother transition duration */
+.logo-inset-wrapper svg {
+    display: block;
+    border-radius: 10px;
+    box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.5), 
+                -2px -2px 6px rgba(255, 255, 255, 0.02);
+    transition: all 0.7s cubic-bezier(0.16, 1, 0.3, 1); /* Increased to 0.7s */
+}
+
+
 body {
     background-color: var(--bg-color);
     color: var(--text-primary);
@@ -148,7 +175,7 @@ textarea {
 }
 
 .tone-btn:hover {
-    color: var(--accent);
+    color: #c084fc;
     transform: translateY(-2px);
     box-shadow: 9px 9px 20px var(--shadow-dark), 
                 -9px -9px 20px var(--shadow-light);
