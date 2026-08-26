@@ -97,18 +97,23 @@ label {
 }
 
 .clear-btn {
-    background: none;
-    border: none;
-    color: var(--text-secondary);
+    background: transparent;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    color: #888888;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 0.7rem;
+    font-weight: 600;
+    padding: 4px 10px;
+    border-radius: 6px;
     cursor: pointer;
-    font-size: 0.85rem;
-    font-family: var(--font-sans);
-    text-decoration: underline;
-    transition: color 0.2s;
+    transition: all 0.2s ease;
 }
 
 .clear-btn:hover {
-    color: var(--text-primary);
+    background: rgba(239, 68, 68, 0.1);
+    border-color: rgba(239, 68, 68, 0.3);
+    color: #ef4444; /* Clean minimalist red hint */
+    transform: translateY(-1px);
 }
 
 /* Recessed Inset Textarea */
@@ -129,14 +134,23 @@ textarea {
 }
 
 .tones-section {
-    margin-top: 5px;
+    margin-top: 20px;
+}
+
+.tones-section label {
+    display: block;
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    color: #888888;
+    margin-bottom: 12px;
 }
 
 .tones-grid {
     display: flex;
-    gap: 12px;
     flex-wrap: wrap;
-    margin-top: 8px;
+    gap: 10px; /* Consistent clean spacing between all buttons */
 }
 
 /* Pill-Shaped 3D Buttons with smaller, bolder uppercase text */
@@ -144,20 +158,20 @@ textarea {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    gap: 8px; /* Space between text and spinner */
-    background: #1c1c22;
-    color: var(--text-primary);
-    border: none;
-    border-radius: 50px;
-    padding: 10px 18px;
-    font-family: var(--font-sans);
-    font-size: 0.75rem; /* Smaller size */
-    font-weight: 700;   /* Bolder weight (Bold/Extra Bold) */
+    gap: 8px;
+    background: #16161c;
+    color: #ededed;
+    border: 1px solid rgba(255, 255, 255, 0.04);
+    border-radius: 10px; /* Slightly softer rectangle instead of full capsules */
+    padding: 10px 16px;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 0.75rem;
+    font-weight: 700;
     text-transform: uppercase;
     letter-spacing: 0.8px;
     cursor: pointer;
-    box-shadow: 6px 6px 14px var(--shadow-dark), 
-                -6px -6px 14px var(--shadow-light);
+    box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.5), 
+                -2px -2px 6px rgba(255, 255, 255, 0.02);
     transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
@@ -175,10 +189,12 @@ textarea {
 }
 
 .tone-btn:hover {
-    color: #c084fc;
+    color: #38bdf8; /* Electric cyan pop */
     transform: translateY(-2px);
-    box-shadow: 9px 9px 20px var(--shadow-dark), 
-                -9px -9px 20px var(--shadow-light);
+    box-shadow: 0 6px 20px rgba(56, 189, 248, 0.15),
+                4px 6px 12px rgba(0, 0, 0, 0.7), 
+                -2px -2px 6px rgba(255, 255, 255, 0.03);
+    border-color: rgba(56, 189, 248, 0.3);
 }
 
 .tone-btn:active {
