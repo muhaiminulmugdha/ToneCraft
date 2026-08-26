@@ -12,19 +12,25 @@ router.post('/', async (req, res) => {
         // Construct a clear prompt for the model
         const prompt = `Transform the following text based on this instruction: "${instruction}".\n\nText:\n${inputText}`;
 
-        // Call Gemini (using gemini-3.6-flash for fast and reliable text tasks)
+        // Call Gemini (using gemini-3.6-flash)
         const response = await ai.models.generateContent({
-            model: 'gemini-3.6-flash',
+            model: 'gemini-3.5-flash',
             contents: prompt,
         });
 
         const resultText = response.text;
 
-        // Render the index page back with the transformed result
-        res.render('index', { resultText });
+        // Render index page with both the result and your typed text
+        res.render('index', { 
+            resultText: resultText,
+            inputText: inputText 
+        });
     } catch (error) {
         console.error('Error generating content:', error);
-        res.render('index', { resultText: 'Sorry, something went wrong with the transformation.' });
+        res.render('index', { 
+            resultText: 'Sorry, something went wrong with the transformation.',
+            inputText: req.body.inputText 
+        });
     }
 });
 

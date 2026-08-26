@@ -4,31 +4,133 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tonecraft</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-    <main style="max-width: 600px; margin: 40px auto; font-family: sans-serif;">
-    <h1>Tonecraft</h1>
+    <main>
+        <h1>
+            <div style="height: 44px; width: 165px; margin-bottom: 24px;">
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 180 48" width="100%" height="100%" style="cursor: pointer;">
+    <style>
+      .bg { 
+        fill: #121212; 
+        stroke: #262626; 
+        transition: all 0.25s ease; 
+      }
+      .bracket { 
+        fill: #888888; 
+        font-family: monospace; 
+        font-weight: bold; 
+        font-size: 20px; 
+        transition: fill 0.25s ease; 
+      }
+      .text { 
+        fill: #ededed; 
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; 
+        font-weight: 700; 
+        font-size: 16px; 
+        letter-spacing: -0.5px; 
+      }
+      .dot { 
+        fill: #ffffff; 
+        transition: transform 0.25s ease; 
+      }
+      
+      /* Hover Effects */
+      <!-- svg:hover .bg {
+        fill: #1a1a1a;
+        stroke: #525252;
+        filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.8));
+      } -->
+      svg:hover .bracket {
+        fill: #ffffff;
+      }
+      svg:hover .dot {
+        transform: scale(1.3);
+      }
+    </style>
     
-    <form action="/transform" method="POST" style="display: flex; flex-direction: column; gap: 15px;">
-        <div>
-            <label for="inputText" style="display: block; margin-bottom: 5px; font-weight: bold;">Your Text:</label>
-            <textarea id="inputText" name="inputText" rows="5" required placeholder="Paste your text here..." style="width: 100%; padding: 10px;"></textarea>
-        </div>
+    <!-- Outer Badge Card -->
+    <rect width="180" height="48" rx="10" class="bg" stroke-width="1"/>
+    
+    <!-- Logo Content -->
+    <text x="16" y="31" class="bracket">&gt;</text>
+    <text x="32" y="30" class="text">Tone<tspan fill="#888888">Craft</tspan></text>
+    <circle cx="118" cy="24" r="2.5" class="dot"/>
+  </svg>
+</div>
 
-        <div>
-            <label for="instruction" style="display: block; margin-bottom: 5px; font-weight: bold;">How should it be transformed?</label>
-            <input type="text" id="instruction" name="instruction" placeholder="e.g., Make it professional, summarize it, etc." style="width: 100%; padding: 10px;" required>
-        </div>
+        </h1>
+        
+        <form id="transformForm" action="/transform" method="POST">
+            <div>
+                <div class="label-container">
+                    <label for="inputText">Your Text</label>
+                    <button type="button" class="clear-btn" onclick="clearText()">Clear</button>
+                </div>
+                <textarea id="inputText" name="inputText" rows="5" required placeholder="Paste your text here..."><%= locals.inputText ? inputText : '' %></textarea>
+            </div>
 
-        <button type="submit" style="padding: 10px; background: #000; color: #fff; border: none; cursor: pointer; font-weight: bold;">Transform</button>
-    </form>
+            <!-- Hidden instruction field -->
+            <input type="hidden" id="instruction" name="instruction">
 
-    <% if (locals.resultText) { %>
-        <div style="margin-top: 30px; padding: 15px; background: #f4f4f4; border-left: 4px solid #000;">
-            <h3>Result:</h3>
-            <p><%= resultText %></p>
+            <div class="tones-section">
+                <label>Choose a Tone to Transform:</label>
+                <div class="tones-grid">
+                    <button type="button" class="tone-btn" onclick="submitWithTone('Professional')">Professional</button>
+                    <button type="button" class="tone-btn" onclick="submitWithTone('Formal')">Formal</button>
+                    <button type="button" class="tone-btn" onclick="submitWithTone('Casual')">Casual</button>
+                    <button type="button" class="tone-btn" onclick="submitWithTone('Funny')">Funny</button>
+                    <button type="button" class="tone-btn" onclick="submitWithTone('Rewrite the input text directly to make it punchy, compelling, and persuasive. Give only the direct rewritten text with no introductory filler, no multiple options, and no extra commentary.')">Persuasive</button>
+                    <button type="button" class="tone-btn" onclick="submitWithTone('Rewrite the input text directly as a single, clean email reply. Do not provide multiple options, do not include introductory text, and keep it concise and ready to send.')">Email Reply</button>
+                </div>
+            </div>
+        </form>
+
+        <!-- Always Visible Result Box -->
+        <div class="result-box">
+            <div class="result-header">
+                <h3>Result:</h3>
+                <% if (locals.resultText) { %>
+                    <button type="button" onclick="copyResult()" id="copyBtn" class="copy-btn">Copy</button>
+                <% } %>
+            </div>
+            <p id="resultParagraph"><%= locals.resultText ? resultText : '...' %></p>
         </div>
-    <% } %>
-</main>
+    </main>
+
+<script>
+    function submitWithTone(toneText) {
+        const inputText = document.getElementById('inputText').value.trim();
+        
+        if (!inputText) {
+            alert('Please paste some text first!');
+            return;
+        }
+
+        document.getElementById('instruction').value = toneText;
+        document.getElementById('transformForm').submit();
+    }
+
+    function clearText() {
+        document.getElementById('inputText').value = '';
+        document.getElementById('inputText').focus();
+    }
+
+    function copyResult() {
+        const textToCopy = document.getElementById('resultParagraph').innerText;
+        navigator.clipboard.writeText(textToCopy).then(() => {
+            const copyBtn = document.getElementById('copyBtn');
+            copyBtn.innerText = 'Copied!';
+            setTimeout(() => {
+                copyBtn.innerText = 'Copy';
+            }, 2000);
+        });
+    }
+</script>
 </body>
 </html>
