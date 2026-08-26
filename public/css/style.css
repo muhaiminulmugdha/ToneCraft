@@ -114,6 +114,10 @@ textarea {
 
 /* Pill-Shaped 3D Buttons with smaller, bolder uppercase text */
 .tone-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px; /* Space between text and spinner */
     background: #1c1c22;
     color: var(--text-primary);
     border: none;
@@ -128,6 +132,19 @@ textarea {
     box-shadow: 6px 6px 14px var(--shadow-dark), 
                 -6px -6px 14px var(--shadow-light);
     transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.tone-btn .spinner {
+    width: 10px;
+    height: 10px;
+    border: 2px solid rgba(255, 255, 255, 0.2);
+    border-top-color: #ffffff;
+    border-radius: 50%;
+    animation: spin 0.6s linear infinite;
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
 }
 
 .tone-btn:hover {

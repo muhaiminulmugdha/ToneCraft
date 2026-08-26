@@ -40,12 +40,6 @@
         transition: transform 0.25s ease; 
       }
       
-      /* Hover Effects */
-      <!-- svg:hover .bg {
-        fill: #1a1a1a;
-        stroke: #525252;
-        filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.8));
-      } -->
       svg:hover .bracket {
         fill: #ffffff;
       }
@@ -81,12 +75,12 @@
             <div class="tones-section">
                 <label>Choose a Tone to Transform:</label>
                 <div class="tones-grid">
-                    <button type="button" class="tone-btn" onclick="submitWithTone('Professional')">Professional</button>
-                    <button type="button" class="tone-btn" onclick="submitWithTone('Formal')">Formal</button>
-                    <button type="button" class="tone-btn" onclick="submitWithTone('Casual')">Casual</button>
-                    <button type="button" class="tone-btn" onclick="submitWithTone('Funny')">Funny</button>
-                    <button type="button" class="tone-btn" onclick="submitWithTone('Rewrite the input text directly to make it punchy, compelling, and persuasive. Give only the direct rewritten text with no introductory filler, no multiple options, and no extra commentary.')">Persuasive</button>
-                    <button type="button" class="tone-btn" onclick="submitWithTone('Rewrite the input text directly as a single, clean email reply. Do not provide multiple options, do not include introductory text, and keep it concise and ready to send.')">Email Reply</button>
+                    <button type="button" class="tone-btn" onclick="submitWithTone(this, 'Professional')"><span class="btn-text">Professional</span><span class="spinner" style="display:none;"></span></button>
+                    <button type="button" class="tone-btn" onclick="submitWithTone(this, 'Formal')"><span class="btn-text">Formal</span><span class="spinner" style="display:none;"></span></button>
+                    <button type="button" class="tone-btn" onclick="submitWithTone(this, 'Casual')"><span class="btn-text">Casual</span><span class="spinner" style="display:none;"></span></button>
+                    <button type="button" class="tone-btn" onclick="submitWithTone(this, 'Funny')"><span class="btn-text">Funny</span><span class="spinner" style="display:none;"></span></button>
+                    <button type="button" class="tone-btn" onclick="submitWithTone(this, 'Rewrite the input text directly to make it punchy, compelling, and persuasive. Give only the direct rewritten text with no introductory filler, no multiple options, and no extra commentary.')"><span class="btn-text">Persuasive</span><span class="spinner" style="display:none;"></span></button>
+                    <button type="button" class="tone-btn" onclick="submitWithTone(this, 'Rewrite the input text directly as a single, clean email reply. Do not provide multiple options, do not include introductory text, and keep it concise and ready to send.')"><span class="btn-text">Email Reply</span><span class="spinner" style="display:none;"></span></button>
                 </div>
             </div>
         </form>
@@ -104,13 +98,24 @@
     </main>
 
 <script>
-    function submitWithTone(toneText) {
+    function submitWithTone(buttonElement, toneText) {
         const inputText = document.getElementById('inputText').value.trim();
         
         if (!inputText) {
             alert('Please paste some text first!');
             return;
         }
+
+        // Disable all tone buttons and show spinner on the clicked one
+        const allButtons = document.querySelectorAll('.tone-btn');
+        allButtons.forEach(btn => btn.style.pointerEvents = 'none');
+
+        const btnTextSpan = buttonElement.querySelector('.btn-text');
+        const spinnerSpan = buttonElement.querySelector('.spinner');
+        
+        if (btnTextSpan) btnTextSpan.textContent = 'Crafting...';
+        if (spinnerSpan) spinnerSpan.style.display = 'inline-block';
+        buttonElement.style.opacity = '0.8';
 
         document.getElementById('instruction').value = toneText;
         document.getElementById('transformForm').submit();
