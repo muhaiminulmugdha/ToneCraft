@@ -267,3 +267,26 @@ textarea {
     color: var(--text-primary);
     white-space: pre-wrap;
 }
+
+.app-footer {
+    margin-top: 48px;
+    padding-top: 24px;
+    border-top: 1px solid rgba(255, 255, 255, 0.04);
+    text-align: center;
+}
+
+.app-footer p {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 0.7rem;
+    color: #666666;
+    letter-spacing: 0.5px;
+}
+
+/* Subtle live system status indicator */
+.status-dot {
+    width: 6px;
+    height: 6px;
+    background-color: #4ade80;
+    border-radius: 50%;
+    box-shadow: 0 0 8px rgba(74, 222, 128, 0.4);
+}
